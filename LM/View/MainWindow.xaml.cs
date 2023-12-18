@@ -15,20 +15,24 @@ using System.Windows.Shapes;
 
 namespace LM
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        ViewModelController vm = new ViewModelController();
-        public MainWindow()
-        {
-            InitializeComponent();
+	/// <summary>
+	/// Логика взаимодействия для MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		ViewModelController vm = new ViewModelController();
+		public MainWindow()
+		{
+			InitializeComponent();
 
-            DataContext = new ViewModelController();
-        }
+			DataContext = new ViewModelController();
+
+		}
+
+		
 
 
-        
-    }
+
+
+	}
 }
