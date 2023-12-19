@@ -12,6 +12,7 @@ namespace LM
     {
         private ObservableCollection<MessageInfo> earlyMessages;
         private string hubLink;
+        private string hubName;
 
         public ObservableCollection<MessageInfo> EarlyMessages
         {
@@ -23,6 +24,11 @@ namespace LM
             get { return hubLink; }
             set { hubLink = value; }
         }
+        public string HubName
+        {
+            get { return hubName; }
+            set { hubName = value; }
 
+        }
     }
 }
