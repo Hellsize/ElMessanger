@@ -19,23 +19,47 @@
 		</Style>
 	</Window.Resources>
 	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition/>
-			<RowDefinition Height="50"/>
-		</Grid.RowDefinitions>
-		<ListBox Grid.Row="0" ItemsSource="{Binding Messages}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Margin="5">
-						<TextBlock FontSize="10" 
-								   Text="{Binding Path=Username}" />
-						<TextBlock Text="{Binding Path=Message}" />
-						
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-		<Grid Grid.Row="1">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+		<!--Лист чатов-->
+        <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Chats}"
+                 SelectedItem="{Binding SelectedChat, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="{Binding Path = ChatName}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+            
+        <!--Лист сообщений-->
+        <ListBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Messages}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="10" 
+						   Text="{Binding Path=Username}" />
+                        <TextBlock Text="{Binding Path=Message}" />
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--Поле вводе сообщений-->
+        <Grid Grid.Row="1" Grid.Column="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition Width="60"/>
