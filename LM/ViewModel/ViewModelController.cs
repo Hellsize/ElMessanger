@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Threading;
 
 namespace LM
 {
@@ -15,8 +16,10 @@ namespace LM
         private string username = string.Empty;
         private RelayCommand sendCommand;
         private string isConnected = string.Empty;
+        private ObservableCollection<HubInfo> hubs;
 
-        private ObservableCollection<MessageInfo> Messages { get; set; }
+
+        public ObservableCollection<MessageInfo> Messages { get; set; }
 
         #region PublicMethods
         public string NewMessage
@@ -39,11 +42,27 @@ namespace LM
         }
         public ViewModelController()
 		{
-			
-            connection = new HubConnectionBuilder()
-                .WithUrl("https://0.0.0.0:443/chat")
-                .Build();
+            
+			ObservableCollection<HubInfo> hubs = new ObservableCollection<HubInfo>();
             Messages = new ObservableCollection<MessageInfo>();
+            connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:7045/chat")
+                .Build();
+            ConnectToChat();
+
+            connection.On<MessageInfo>("Receive", (messageInfo) =>
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var newMessage = new MessageInfo();
+                    newMessage.Username = messageInfo.Username;
+                    newMessage.Message = messageInfo.Message;
+                    if(!Messages.Contains(newMessage)) 
+                        Messages.Add(newMessage);
+
+                });
+            });
+
         }
 
         public void ConnectToChat()
